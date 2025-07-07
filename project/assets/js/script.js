@@ -27,7 +27,7 @@ groundSprite.src = "img/ground.png";
 let startSprite = new Image();
 startSprite.src  = "img/start.png";
 
-let gomush = new GameObject(mushSprite, 0, 0, 64, 64);
+let gomush = new GameObject(mushSprite, 100, 100, 100, 100);
 
 function GameObject(spritesheet, x, y, width, height) {
     this.spritesheet = spritesheet;
@@ -51,7 +51,7 @@ function draw() {
     context.clearRect(0,0, canvas.width, canvas.height);
     
     
-   context.drawImage(mushSprite, 0,0,400,400)
+   context.drawImage(gomush.spritesheet, gomush.x, gomush.y, gomush.width, gomush.height)
 
     //context.drawImage(tree,400,400,0,0);
    //context.drawimage(tree, 0, 0, 200, 200);
@@ -76,16 +76,16 @@ function input(event) {
     if (event.type === "keydown") {
         switch (event.keyCode) {
             
-            case 37: // Left Arrow
+            case "a": // Left Arrow
                 gamerInput = new GamerInput("Left");
                 break; //Left key
-            case 38: // Up Arrow
+            case "w": // Up Arrow
                 gamerInput = new GamerInput("Up");
                 break; //Up key
-            case 39: // Right Arrow
+            case 'd': // Right Arrow
                 gamerInput = new GamerInput("Right");
                 break; //Right key
-            case 40: // Down Arrow
+            case "s": // Down Arrow
                 gamerInput = new GamerInput("Down");
                 break; //Down key
             case 32:
@@ -102,8 +102,55 @@ function input(event) {
 
 }
 
+function animate(posX, posY, spritesheet) {
+    if (gamerInput.action != "None"){
+        frameCount++;
+        if (frameCount >= frameLimit) {
+            frameCount = 0;
+            currentLoopIndex++;
+            if (currentLoopIndex >= walkLoop.length) {
+                currentLoopIndex = 0;
+            }
+        }      
+    }
+    else{
+        currentLoopIndex = 0;
+    }
+    if (spritesheet === gomush.spritesheet)
+    {
+        drawFrame(spritesheet, otherWalkLoop[currentLoopIndex], currentDirection, posX, posY);
+    }
+    else
+    {
+        drawFrame(spritesheet, walkLoop[currentLoopIndex], currentDirection, posX, posY);
+    }
+}
+
+function NPCAnimate(posX, posY, spritesheet)
+{
+        otherFrameCount++;
+        if (otherFrameCount >= frameLimit) {
+            otherFrameCount = 0;
+            otherCurrentLoopIndex++;
+            if (otherCurrentLoopIndex >= walkLoop.length) {
+                otherCurrentLoopIndex = 0;
+            }
+        }      
+    if (spritesheet === goexitSprite.spritesheet)
+    {
+        context.drawImage(spritesheet,
+            walkLoop[otherCurrentLoopIndex] * exitWidth, currentDirection * exitHeight, exitWidth, exitHeight,
+            posX, posY, scaledWidth * 2, scaledHeight * 2);
+    }   
+    else
+    {
+        drawFrame(spritesheet, walkLoop[otherCurrentLoopIndex], currentDirection, posX, posY);
+    }
+}
+function update(){
 
 
+}
 
 function gameloop() {
     //calls the setup function on first itteration of loop [Note:bool variable method used to allow for toggeling setupComplete to false and triggering setup() for starting a new level of the game]
