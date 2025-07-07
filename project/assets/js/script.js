@@ -18,7 +18,7 @@ let speed = 4;
 
 
 
-let musSprite = new Image();
+let mushSprite = new Image();
 mushSprite.src = "assets/img/mush.png";
 
 let groundSprite = new Image ();
