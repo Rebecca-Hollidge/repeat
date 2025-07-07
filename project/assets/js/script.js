@@ -19,13 +19,13 @@ let speed = 4;
 
 
 let mushSprite = new Image();
-mushSprite.src = "assets/img/mush.png";
+mushSprite.src = "img/mush.png";
 
 let groundSprite = new Image ();
-groundSprite.src = "assets/img/ground.png";
+groundSprite.src = "img/ground.png";
 
 let startSprite = new Image();
-startSprite.src  = "assets/img/start.png";
+startSprite.src  = "img/start.png";
 
 let gomush = new GameObject(mushSprite, 0, 0, 64, 64);
 
