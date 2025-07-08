@@ -18,8 +18,10 @@ let speed = 4;
 
 
 
-let mushSprite = new Image();
-mushSprite.src = "img/mush.png";
+let mushRSprite = new Image();
+mushRSprite.src = "img/mushR.png";
+let mushLSprite = new Image();
+mushLSprite.src = "img/mushL.png";
 
 let groundSprite = new Image ();
 groundSprite.src = "img/ground.png";
@@ -27,7 +29,9 @@ groundSprite.src = "img/ground.png";
 let startSprite = new Image();
 startSprite.src  = "img/start.png";
 
-let gomush = new GameObject(mushSprite, 100, 100, 100, 100);
+let gomushR = new GameObject(mushRSprite, 100, 100, 100, 100);
+let gomushL = new GameObject(mushLSprite, 100, 100, 100, 100);
+let goground = new GameObject(groundSprite, 500,500,500, 500);
 
 
 function GameObject(spritesheet, x, y, width, height) {
@@ -51,8 +55,9 @@ function draw() {
     console.log("Draw is called!");
     context.clearRect(0,0, canvas.width, canvas.height);
     
-    
-   context.drawImage(gomush.spritesheet, gomush.x, gomush.y, gomush.width, gomush.height)
+    context.drawImage(goground.spritesheet, goground.x, goground.y, goground.width, goground.height);
+   context.drawImage(gomushR.spritesheet, gomushR.x, gomushR.y, gomushR.width, gomushR.height)
+   context.drawImage(gomushL.spritesheet, gomushL.x, gomushL.y, gomushR.width, gomushL.height)
 
     //context.drawImage(tree,400,400,0,0);
    //context.drawimage(tree, 0, 0, 200, 200);
@@ -108,35 +113,35 @@ function update() {
     // console.log("Update");
     // Check Input
     if (gamerInput.action === "Up") {
-        if (gomush.y < 0){
+        if (gomushR.y < 0){
             console.log("player at top edge");
             //.fillStyle = "red";
 
         }
         else{
-            gomush.y -= speed; // Move Player Up
+            gomushR.y -= speed; // Move Player Up
         }
     } else if (gamerInput.action === "Down") {
-        if (gomush.y + scaledHeight > canvas.height){
+        if (gomushR.y + scaledHeight > canvas.height){
             console.log("player at bottom edge");
         }
         else{
-            gomush.y += speed; // Move Player Down
+            gomushR.y += speed; // Move Player Down
         }
     } else if (gamerInput.action === "Left") {
-        if (gomush.x < 0){
+        if (gomushR.x < 0){
             console.log("player at left edge");
             
         }
         else{
-            gomush.x -= speed; // Move Player Left
+            gomushR.x -= speed; // Move Player Left
         }
     } else if (gamerInput.action === "Right") {
-        if (gomush.x + scaledWidth > canvas.width){
+        if (gomushR.x + scaledWidth > canvas.width){
 
         }
         else{
-            gomush.x += speed; // Move Player Right
+            gomushR.x += speed; // Move Player Right
         }
     } else if (gamerInput.action === "None") {
     }
@@ -188,10 +193,7 @@ function NPCAnimate(posX, posY, spritesheet)
         drawFrame(spritesheet, walkLoop[otherCurrentLoopIndex], currentDirection, posX, posY);
     }
 }
-function update(){
 
-
-}
 
 function gameloop() {
     //calls the setup function on first itteration of loop [Note:bool variable method used to allow for toggeling setupComplete to false and triggering setup() for starting a new level of the game]
