@@ -29,6 +29,7 @@ startSprite.src  = "img/start.png";
 
 let gomush = new GameObject(mushSprite, 100, 100, 100, 100);
 
+
 function GameObject(spritesheet, x, y, width, height) {
     this.spritesheet = spritesheet;
     this.x = x;
@@ -76,16 +77,16 @@ function input(event) {
     if (event.type === "keydown") {
         switch (event.keyCode) {
             
-            case "a": // Left Arrow
+            case 37: // Left Arrow
                 gamerInput = new GamerInput("Left");
                 break; //Left key
-            case "w": // Up Arrow
+            case 38: // Up Arrow
                 gamerInput = new GamerInput("Up");
                 break; //Up key
-            case 'd': // Right Arrow
+            case 39: // Right Arrow
                 gamerInput = new GamerInput("Right");
                 break; //Right key
-            case "s": // Down Arrow
+            case 40: // Down Arrow
                 gamerInput = new GamerInput("Down");
                 break; //Down key
             case 32:
@@ -101,6 +102,46 @@ function input(event) {
     }
 
 }
+
+
+function update() {
+    // console.log("Update");
+    // Check Input
+    if (gamerInput.action === "Up") {
+        if (gomush.y < 0){
+            console.log("player at top edge");
+            //.fillStyle = "red";
+
+        }
+        else{
+            gomush.y -= speed; // Move Player Up
+        }
+    } else if (gamerInput.action === "Down") {
+        if (gomush.y + scaledHeight > canvas.height){
+            console.log("player at bottom edge");
+        }
+        else{
+            gomush.y += speed; // Move Player Down
+        }
+    } else if (gamerInput.action === "Left") {
+        if (gomush.x < 0){
+            console.log("player at left edge");
+            
+        }
+        else{
+            gomush.x -= speed; // Move Player Left
+        }
+    } else if (gamerInput.action === "Right") {
+        if (gomush.x + scaledWidth > canvas.width){
+
+        }
+        else{
+            gomush.x += speed; // Move Player Right
+        }
+    } else if (gamerInput.action === "None") {
+    }
+}
+
 
 function animate(posX, posY, spritesheet) {
     if (gamerInput.action != "None"){
