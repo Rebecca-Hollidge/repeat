@@ -7,7 +7,7 @@ const width = 64;
 const height = 64;
 const scaledWidth = scale * width;
 const scaledHeight = scale * height;
-
+const Audioloop = 0;
 
 let currentLoopIndex = 0;
 let otherCurrentLoopIndex = 0;
@@ -22,6 +22,10 @@ let mushRSprite = new Image();
 mushRSprite.src = "img/mushR.png";
 let mushLSprite = new Image();
 mushLSprite.src = "img/mushL.png";
+let mushUSprite = new Image();
+mushUSprite.src = "img/mushU.png";
+let mushDSprite = new Image();
+mushDSprite.src = "img/mushD.png";
 
 let groundSprite = new Image ();
 groundSprite.src = "img/ground.png";
@@ -29,9 +33,14 @@ groundSprite.src = "img/ground.png";
 let startSprite = new Image();
 startSprite.src  = "img/start.png";
 
+//let mushroomAudio = new Audio();
+//mushroomAudio.src = 'img/mushroomAudio.mp3";
+
 let gomushR = new GameObject(mushRSprite, 100, 100, 100, 100);
 let gomushL = new GameObject(mushLSprite, 100, 100, 100, 100);
-let goground = new GameObject(groundSprite, 500,500,500, 500);
+let gomushU = new GameObject(mushUSprite, 100, 100, 100, 100);
+let gomushD = new GameObject(mushDSprite, 100, 100, 100, 100);
+let goground = new GameObject(groundSprite, 0, 0,100, 100);
 
 
 function GameObject(spritesheet, x, y, width, height) {
@@ -54,10 +63,15 @@ function drawFrame(image, frameX, frameY, canvasX, canvasY) {
 function draw() {
     console.log("Draw is called!");
     context.clearRect(0,0, canvas.width, canvas.height);
-    
-    context.drawImage(goground.spritesheet, goground.x, goground.y, goground.width, goground.height);
+   
+ 
+   context.drawImage(goground.spritesheet, goground.x, goground.y, goground.width, goground.height)
+   
+
    context.drawImage(gomushR.spritesheet, gomushR.x, gomushR.y, gomushR.width, gomushR.height)
-   context.drawImage(gomushL.spritesheet, gomushL.x, gomushL.y, gomushR.width, gomushL.height)
+   context.drawImage(gomushL.spritesheet, gomushL.x, gomushL.y, gomushL.width, gomushL.height)
+   context.drawImage(gomushD.spritesheet, gomushD.x, gomushD.y, gomushD.width, gomushD.height)
+   context.drawImage(gomushU.spritesheet, gomushU.x, gomushU.y, gomushU.width, gomushU.height)
 
     //context.drawImage(tree,400,400,0,0);
    //context.drawimage(tree, 0, 0, 200, 200);
@@ -84,15 +98,19 @@ function input(event) {
             
             case 37: // Left Arrow
                 gamerInput = new GamerInput("Left");
+                GameObject = mushLSprite;
                 break; //Left key
             case 38: // Up Arrow
                 gamerInput = new GamerInput("Up");
+                GameObject = mushUSprite;
                 break; //Up key
             case 39: // Right Arrow
                 gamerInput = new GamerInput("Right");
+                GameObject = mushRSprite;
                 break; //Right key
             case 40: // Down Arrow
                 gamerInput = new GamerInput("Down");
+                GameObject = mushDSprite;
                 break; //Down key
             case 32:
                 speed = 4;
@@ -113,28 +131,28 @@ function update() {
     // console.log("Update");
     // Check Input
     if (gamerInput.action === "Up") {
-        if (gomushR.y < 0){
+        if (gomushU.y < 0){
             console.log("player at top edge");
             //.fillStyle = "red";
 
         }
         else{
-            gomushR.y -= speed; // Move Player Up
+            gomushU.y -= speed; // Move Player Up
         }
     } else if (gamerInput.action === "Down") {
-        if (gomushR.y + scaledHeight > canvas.height){
+        if (gomushD.y + scaledHeight > canvas.height){
             console.log("player at bottom edge");
         }
         else{
-            gomushR.y += speed; // Move Player Down
+            gomushD.y += speed; // Move Player Down
         }
     } else if (gamerInput.action === "Left") {
-        if (gomushR.x < 0){
+        if (gomushL.x < 0){
             console.log("player at left edge");
             
         }
         else{
-            gomushR.x -= speed; // Move Player Left
+            gomushL.x -= speed; // Move Player Left
         }
     } else if (gamerInput.action === "Right") {
         if (gomushR.x + scaledWidth > canvas.width){
@@ -194,6 +212,12 @@ function NPCAnimate(posX, posY, spritesheet)
     }
 }
 
+    //function Audio(){
+
+   // img/mushroom.mp3 
+   // bool: true,
+   //         console.log("music")
+   // }
 
 function gameloop() {
     //calls the setup function on first itteration of loop [Note:bool variable method used to allow for toggeling setupComplete to false and triggering setup() for starting a new level of the game]
@@ -203,7 +227,7 @@ function gameloop() {
         setupComplete = setup(setupComplete);
     }
     */
-   
+  // Audio();
     update();
     draw();
     window.requestAnimationFrame(gameloop);
