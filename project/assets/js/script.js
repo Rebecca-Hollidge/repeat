@@ -2,6 +2,8 @@ const canvas = document.getElementById("the_canvas")
 const context = canvas.getContext("2d");
 
 
+
+
 const scale = 2;
 const width = 64;
 const height = 64;
@@ -17,6 +19,10 @@ let currentDirection = 0;
 let speed = 4;
 
 
+
+
+var audio = new Audio('img/mushroom.mp4');
+audio.play();
 
 let mushRSprite = new Image();
 mushRSprite.src = "img/mushR.png";
@@ -41,7 +47,7 @@ let gomushL = new GameObject(mushLSprite, 100, 100, 100, 100);
 let gomushU = new GameObject(mushUSprite, 100, 100, 100, 100);
 let gomushD = new GameObject(mushDSprite, 100, 100, 100, 100);
 let goground = new GameObject(groundSprite, 0, 0,100, 100);
-
+let gostart = new GameObject(startSprite, 100, 100, 200, 200);
 
 function GameObject(spritesheet, x, y, width, height) {
     this.spritesheet = spritesheet;
@@ -64,9 +70,9 @@ function draw() {
     console.log("Draw is called!");
     context.clearRect(0,0, canvas.width, canvas.height);
    
- 
+ context.drawImage(gostart.spritesheet, gostart.x, gostart.y, gostart.width, gostart.height)
    context.drawImage(goground.spritesheet, goground.x, goground.y, goground.width, goground.height)
-   
+  
 
    context.drawImage(gomushR.spritesheet, gomushR.x, gomushR.y, gomushR.width, gomushR.height)
    context.drawImage(gomushL.spritesheet, gomushL.x, gomushL.y, gomushL.width, gomushL.height)
@@ -103,6 +109,7 @@ function input(event) {
             case 38: // Up Arrow
                 gamerInput = new GamerInput("Up");
                 GameObject = mushUSprite;
+                 
                 break; //Up key
             case 39: // Right Arrow
                 gamerInput = new GamerInput("Right");
@@ -228,6 +235,10 @@ function gameloop() {
     }
     */
   // Audio();
+  
+
+     audio.play();
+      bool = true;
     update();
     draw();
     window.requestAnimationFrame(gameloop);
