@@ -6,7 +6,7 @@ section.wrapper{
 }
 canvas {
     display: block;
-    outline: 1px solid pink;
+    outline: 1px solid #fabcc6;
     background-image: "img/ground.png";
     max-height: 70vh;
     max-width: 100vw;

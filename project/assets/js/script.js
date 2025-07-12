@@ -18,9 +18,10 @@ let otherFrameCount = 0;
 let currentDirection = 0;
 let speed = 4;
 
+//width="1100" 
+//height="500"
 
-
-
+var audio = new Audio('img/raindrop.mp4');
 var audio = new Audio('img/mushroom.mp4');
 audio.play();
 
@@ -36,18 +37,13 @@ mushDSprite.src = "img/mushD.png";
 let groundSprite = new Image ();
 groundSprite.src = "img/ground.png";
 
-let startSprite = new Image();
-startSprite.src  = "img/start.png";
 
-//let mushroomAudio = new Audio();
-//mushroomAudio.src = 'img/mushroomAudio.mp3";
-
+let goground = new GameObject(groundSprite, 0, 0,100, 100);
 let gomushR = new GameObject(mushRSprite, 100, 100, 100, 100);
 let gomushL = new GameObject(mushLSprite, 100, 100, 100, 100);
 let gomushU = new GameObject(mushUSprite, 100, 100, 100, 100);
 let gomushD = new GameObject(mushDSprite, 100, 100, 100, 100);
-let goground = new GameObject(groundSprite, 0, 0,100, 100);
-let gostart = new GameObject(startSprite, 100, 100, 200, 200);
+
 
 function GameObject(spritesheet, x, y, width, height) {
     this.spritesheet = spritesheet;
@@ -70,7 +66,7 @@ function draw() {
     console.log("Draw is called!");
     context.clearRect(0,0, canvas.width, canvas.height);
    
- context.drawImage(gostart.spritesheet, gostart.x, gostart.y, gostart.width, gostart.height)
+ //context.drawImage(gostart.spritesheet, gostart.x, gostart.y, gostart.width, gostart.height)
    context.drawImage(goground.spritesheet, goground.x, goground.y, goground.width, goground.height)
   
 
